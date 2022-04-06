@@ -13,30 +13,33 @@ function App() {
 
   const hadleGoogleSignIn = () => {
     signInWithPopup(auth, googleProvider)
-    .then(result => {
-      const user = result.user;
-      setUser(user);
-      console.log(user)
-    })
-    .catch(error => {
-      console.log(error);
-    })
+      .then(result => {
+        const user = result.user;
+        setUser(user);
+        console.log(user)
+      })
+      .catch(error => {
+        console.log(error);
+      })
   }
 
   const handleSignOut = () => {
     signOut(auth)
-    .then(() => {
-      setUser({});
-    })
-    .catch(error => {
-      setUser({});
-    })
+      .then(() => {
+        setUser({});
+      })
+      .catch(error => {
+        setUser({});
+      })
   }
 
   return (
     <div className="App">
-      <button onClick={hadleGoogleSignIn}>Sign in With Google</button>
-      <button onClick={handleSignOut}>Sign Out</button>
+      {
+        user.email ? <button onClick={handleSignOut}>Sign Out</button> :
+          <button onClick={hadleGoogleSignIn}>Sign in With Google</button>
+
+      }
       <div>
         <h3>{user.displayName}</h3>
         <h5>{user.email}</h5>
